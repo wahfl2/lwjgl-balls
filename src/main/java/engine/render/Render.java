@@ -1,15 +1,11 @@
 package engine.render;
 
-import engine.Scene;
 import engine.Window;
 import org.lwjgl.opengl.GL;
-
-import java.awt.*;
 
 import static org.lwjgl.opengl.GL11.*;
 
 public class Render {
-
     public Render() {
         GL.createCapabilities();
     }
@@ -19,10 +15,15 @@ public class Render {
     }
 
     public void render(Window window, Scene scene) {
+        if ( window.isResized() ) {
+            glViewport(0, 0, window.getWidth(), window.getHeight());
+            window.setResized(false);
+        }
+
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    }
-
-    private void drawTriangle(RenderTriangle triangle) {
-
+        for (Renderable renderable : scene.getObjects()) {
+            renderable.intoBuffer();
+        }
+        glFlush();
     }
 }

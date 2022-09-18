@@ -1,6 +1,7 @@
 package engine;
 
 import engine.render.Render;
+import engine.render.Scene;
 
 import java.util.logging.Logger;
 
@@ -9,7 +10,7 @@ public class Main implements IAppLogic {
 
     public static void main(String[] args) {
         Main main = new Main();
-        Engine gameEng = new Engine("chapter-02", new Window.WindowOptions(), main);
+        Engine gameEng = new Engine("balls", new Window.WindowOptions(), main);
         gameEng.start();
     }
 

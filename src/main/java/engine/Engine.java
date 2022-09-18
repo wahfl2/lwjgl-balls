@@ -1,6 +1,7 @@
 package engine;
 
 import engine.render.Render;
+import engine.render.Scene;
 
 public class Engine {
 
