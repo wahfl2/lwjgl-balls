@@ -18,7 +18,7 @@ public class Window {
     private Callable<Void> resizeFunc;
     private int width;
 
-    private boolean resized;
+    private boolean resized = true;
 
     public Window(String title, WindowOptions opts, Callable<Void> resizeFunc) {
         this.resizeFunc = resizeFunc;
@@ -108,7 +108,7 @@ public class Window {
     protected void resized(int width, int height) {
         this.width = width;
         this.height = height;
-        this.resized = true;
+        // this.resized = true;
         try {
             resizeFunc.call();
         } catch (Exception excp) {
@@ -118,6 +118,7 @@ public class Window {
 
     public void update() {
         glfwSwapBuffers(windowHandle);
+        resized = false;
     }
 
     public boolean windowShouldClose() {
@@ -126,10 +127,6 @@ public class Window {
 
     public boolean isResized() {
         return resized;
-    }
-
-    public void setResized(boolean bool) {
-        this.resized = bool;
     }
 
     public static class WindowOptions {
