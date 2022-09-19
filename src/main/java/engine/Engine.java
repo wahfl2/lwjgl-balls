@@ -2,6 +2,7 @@ package engine;
 
 import engine.render.Render;
 import engine.render.Scene;
+import org.lwjgl.opengl.GL11;
 
 public class Engine {
 
@@ -15,6 +16,7 @@ public class Engine {
     private int targetUps;
 
     public Engine(String windowTitle, Window.WindowOptions opts, IAppLogic appLogic) {
+
         window = new Window(windowTitle, opts, () -> {
             resize();
             return null;

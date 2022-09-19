@@ -4,7 +4,7 @@ import engine.util.Vec2;
 
 import java.awt.*;
 import java.util.ArrayList;
-import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL30.*;
 
 public class TriMesh implements Renderable {
     private Color color;

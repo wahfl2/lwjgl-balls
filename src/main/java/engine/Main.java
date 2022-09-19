@@ -1,8 +1,12 @@
 package engine;
 
+import engine.render.Circle;
+import engine.render.Mesh;
 import engine.render.Render;
 import engine.render.Scene;
+import engine.util.Vec2;
 
+import java.awt.*;
 import java.util.logging.Logger;
 
 public class Main implements IAppLogic {
@@ -21,7 +25,13 @@ public class Main implements IAppLogic {
 
     @Override
     public void init(Window window, Scene scene, Render render) {
-        // Nothing to be done yet
+        float[] positions = new float[]{
+                0.0f, 0.5f,
+                -0.5f, -0.5f,
+                0.5f, -0.5f,
+        };
+        Mesh mesh = new Mesh(positions, 3);
+        scene.addMesh("triangle", mesh);
     }
 
     @Override

@@ -3,7 +3,7 @@ package engine.render;
 import engine.util.Vec2;
 
 import java.awt.*;
-import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL30.*;
 
 public class Triangle implements Renderable {
     public Vec2 p1;

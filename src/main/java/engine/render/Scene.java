@@ -1,18 +1,24 @@
 package engine.render;
 
-import java.util.ArrayList;
+import java.util.*;
 
 public class Scene {
-    private final ArrayList<Renderable> objects = new ArrayList<>();
+
+    private Map<String, Mesh> meshMap;
 
     public Scene() {
+        meshMap = new HashMap<>();
     }
 
-    public ArrayList<Renderable> getObjects() {
-        return objects;
+    public void addMesh(String meshId, Mesh mesh) {
+        meshMap.put(meshId, mesh);
     }
 
     public void cleanup() {
-        // Nothing to be done here yet
+        meshMap.values().stream().forEach(Mesh::cleanup);
+    }
+
+    public Map<String, Mesh> getMeshMap() {
+        return meshMap;
     }
 }

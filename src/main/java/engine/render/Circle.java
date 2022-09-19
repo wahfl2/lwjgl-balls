@@ -1,12 +1,12 @@
 package engine.render;
 
 import engine.util.Vec2;
+import org.lwjgl.opengl.GL;
 
 import java.awt.*;
 import java.util.ArrayList;
 
-import static org.lwjgl.opengl.GL11.GL_POLYGON;
-import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL30.*;
 
 public class Circle implements Renderable {
     private Vec2 pos;
@@ -19,6 +19,7 @@ public class Circle implements Renderable {
     private final ArrayList<Vec2> computedVertexPositions = new ArrayList<>();
 
     public Circle(Vec2 pos, double radius, Color color) {
+        GL.createCapabilities();
         this.pos = pos;
         this.radius = radius;
         this.color = color;
@@ -28,6 +29,7 @@ public class Circle implements Renderable {
     }
 
     public Circle(Vec2 pos, double radius, Color color, int numVertices) {
+        GL.createCapabilities();
         this.pos = pos;
         this.radius = radius;
         this.color = color;
