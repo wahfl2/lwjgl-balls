@@ -28,10 +28,10 @@ public class Main implements IAppLogic {
     public void init(Window window, Scene scene, Render render) {
         Mesh mesh = new CircleGenerator(100d, Utils.randomColor()).generateMesh();
 
-        scene.addEntity(new Ball("ball1", new Vec2(-500d, 0d), 100d));
-        scene.addEntity(new Ball("ball2", new Vec2(500d, 100d), 50d));
-        scene.addEntity(new Ball("ball3", new Vec2(200d, -400d), 75d));
-        scene.addEntity(new Ball("ball4", new Vec2(-50d, 800d), 10d));
+        scene.addEntity(new Ball("ball1", new Vec2(-500d, 0d), Math.random() * 50 + 50));
+        scene.addEntity(new Ball("ball2", new Vec2(500d, 100d), Math.random() * 50 + 50));
+        scene.addEntity(new Ball("ball3", new Vec2(200d, -400d), Math.random() * 50 + 50));
+        scene.addEntity(new Ball("ball4", new Vec2(-50d, 800d), Math.random() * 50 + 50));
 
 //        scene.addEntity(new Entity(
 //                "circle 2",

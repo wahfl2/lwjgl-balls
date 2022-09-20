@@ -1,13 +1,9 @@
 package engine.util;
 
 import engine.render.Mesh;
-import engine.util.Utils;
-import engine.util.Vec2;
 
 import java.awt.*;
 import java.util.ArrayList;
-
-import static org.lwjgl.opengl.GL30.*;
 
 public class CircleGenerator {
     public Color color;

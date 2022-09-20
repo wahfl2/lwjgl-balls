@@ -1,6 +1,5 @@
 package engine.balls;
 
-import engine.Main;
 import engine.render.Entity;
 import engine.util.CircleGenerator;
 import engine.util.Utils;
@@ -18,11 +17,13 @@ public class Ball extends Entity {
 
     public Ball(String id, Vec2 position, double radius) {
         super(id, new CircleGenerator(radius, Utils.randomColor()).generateMesh());
+        this.radius = radius;
         this.pos = position;
     }
 
     public Ball(String id, Vec2 position, double radius, Color color) {
         super(id, new CircleGenerator(radius, color).generateMesh());
+        this.radius = radius;
         this.pos = position;
     }
 
@@ -32,18 +33,18 @@ public class Ball extends Entity {
 
 
     public void move() {
-        this.pos.add(this.vel);
+        this.pos = this.pos.add(this.vel);
         double distance = this.pos.length();
-        double rad = 900d - this.radius;
-        if (distance > rad) {
-            double moveDist = distance - rad;
-            Vec2 resolutionVec = this.pos.clone().normalize().mul(moveDist);
+        double allowedDistance = 900d - this.radius;
+        if (distance > allowedDistance) {
+            double moveDist = distance - allowedDistance;
+            Vec2 resolutionVec = this.pos.normalize().mul(moveDist);
 
-            this.pos.sub(resolutionVec);
-            this.vel.sub(resolutionVec);
+            this.pos = this.pos.sub(resolutionVec);
+            this.vel = this.vel.sub(resolutionVec);
         }
         this.vel.y -= 0.1d;
-        this.vel.mul(0.9995d);
+        this.vel = this.vel.mul(0.9995d);
         this.updateEntityPos();
     }
 
@@ -54,12 +55,15 @@ public class Ball extends Entity {
             if (distance < addedRadii) {
                 // Position handling
                 double moveDist = addedRadii - distance;
-                Vec2 resolutionVec = this.pos.clone().sub(other.pos).normalize().mul(moveDist / 2);
+                Vec2 resolutionVec = this.pos.sub(other.pos).normalize().mul(moveDist / 2);
 
-                this.pos.add(resolutionVec);
+                this.pos = this.pos.add(resolutionVec);
                 this.updateEntityPos();
-                other.pos.sub(resolutionVec);
+                this.vel = this.vel.add(resolutionVec);
+
+                other.pos = other.pos.sub(resolutionVec);
                 other.updateEntityPos();
+                other.vel = other.vel.sub(resolutionVec);
             }
         }
     }

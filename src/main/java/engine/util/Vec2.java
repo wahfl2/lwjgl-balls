@@ -11,23 +11,16 @@ public class Vec2 {
         this.y = y;
     }
 
-    public Vec2 clone() {
-        return new Vec2(this.x, this.y);
-    }
-
     public Vec2 add(@NotNull Vec2 other) {
-        x += other.x; y += other.y;
-        return this;
+        return new Vec2(this.x + other.x, this.y + other.y);
     }
 
     public Vec2 sub(@NotNull Vec2 other) {
-        x -= other.x; y -= other.y;
-        return this;
+        return new Vec2(this.x - other.x, this.y - other.y);
     }
 
     public Vec2 mul(double mul) {
-        x *= mul; y *= mul;
-        return this;
+        return new Vec2(this.x * mul, this.y * mul);
     }
 
     public final double distance(Vec2 other) {
@@ -42,9 +35,7 @@ public class Vec2 {
 
     public final Vec2 normalize() {
         double len = this.length();
-        this.x /= len;
-        this.y /= len;
-        return this;
+        return new Vec2(this.x / len, this.y / len);
     }
 
     public static final Vec2 ZERO = new Vec2(0d, 0d);
