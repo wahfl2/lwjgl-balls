@@ -6,7 +6,7 @@ import org.lwjgl.opengl.GL11;
 
 public class Engine {
 
-    public static final int TARGET_UPS = 30;
+    public static final int TARGET_UPS = 240;
     private final IAppLogic appLogic;
     private final Window window;
     private Render render;

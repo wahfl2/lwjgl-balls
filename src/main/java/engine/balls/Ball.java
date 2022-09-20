@@ -34,7 +34,6 @@ public class Ball extends Entity {
     public void move() {
         this.pos.add(this.vel);
         double distance = this.pos.length();
-        System.out.println("distance: " + distance);
         double rad = 900d - this.radius;
         if (distance > rad) {
             double moveDist = distance - rad;
@@ -43,7 +42,7 @@ public class Ball extends Entity {
             this.pos.sub(resolutionVec);
             this.vel.sub(resolutionVec);
         }
-        this.vel.y -= 1d;
+        this.vel.y -= 0.1d;
         this.vel.mul(0.9995d);
         this.updateEntityPos();
     }
@@ -55,11 +54,11 @@ public class Ball extends Entity {
             if (distance < addedRadii) {
                 // Position handling
                 double moveDist = addedRadii - distance;
-                Vec2 resolutionVec = this.pos.sub(other.pos).normalize().mul(moveDist / 2);
+                Vec2 resolutionVec = this.pos.clone().sub(other.pos).normalize().mul(moveDist / 2);
 
-                this.pos = this.pos.add(resolutionVec);
+                this.pos.add(resolutionVec);
                 this.updateEntityPos();
-                other.pos = other.pos.sub(resolutionVec);
+                other.pos.sub(resolutionVec);
                 other.updateEntityPos();
             }
         }
