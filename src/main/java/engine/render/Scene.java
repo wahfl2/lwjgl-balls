@@ -4,21 +4,23 @@ import java.util.*;
 
 public class Scene {
 
-    private Map<String, Mesh> meshMap;
+    private Map<String, Entity> entityMap;
 
     public Scene() {
-        meshMap = new HashMap<>();
+        entityMap = new HashMap<>();
     }
 
-    public void addMesh(String meshId, Mesh mesh) {
-        meshMap.put(meshId, mesh);
+    public void addEntity(Entity entity) {
+        entityMap.put(entity.getId(), entity);
     }
 
     public void cleanup() {
-        meshMap.values().stream().forEach(Mesh::cleanup);
+        for (Entity e : entityMap.values()) {
+            e.getMesh().cleanup();
+        }
     }
 
-    public Map<String, Mesh> getMeshMap() {
-        return meshMap;
+    public Map<String, Entity> getEntityMap() {
+        return entityMap;
     }
 }
