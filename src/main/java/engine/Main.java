@@ -1,10 +1,13 @@
 package engine;
 
+import engine.balls.Ball;
 import engine.render.*;
 import engine.util.CircleGenerator;
 import engine.util.Utils;
+import engine.util.Vec2;
 import org.joml.Vector2f;
 
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
 public class Main implements IAppLogic {
@@ -25,11 +28,7 @@ public class Main implements IAppLogic {
     public void init(Window window, Scene scene, Render render) {
         Mesh mesh = new CircleGenerator(100d, Utils.randomColor()).generateMesh();
 
-        scene.addEntity(new Entity(
-                "circle",
-                mesh,
-                new Vector2f(0f, 0f)
-        ));
+        scene.addEntity(new Ball("ball1", new Vec2(-500d, 0d), 100d));
 
 //        scene.addEntity(new Entity(
 //                "circle 2",
@@ -45,6 +44,19 @@ public class Main implements IAppLogic {
 
     @Override
     public void update(Window window, Scene scene, long diffTimeMillis) {
-        // Nothing to be done yet
+        ArrayList<Ball> ballList = new ArrayList<>();
+        for (Entity entity : scene.getEntityMap().values()) {
+            if (entity instanceof Ball ball) {
+                ballList.add(ball);
+                ball.move();
+            }
+        }
+        for (Ball ball1 : ballList) {
+            for (Ball ball2 : ballList) {
+                if (ball1 != ball2) {
+                    ball1.collide(ball2);
+                }
+            }
+        }
     }
 }

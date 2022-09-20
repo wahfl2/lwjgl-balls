@@ -53,11 +53,15 @@ public class Engine {
             window.pollEvents();
 
             long now = System.currentTimeMillis();
-            deltaUpdate += (now - initialTime) / timeU;
-            deltaFps += (now - initialTime) / timeR;
+            float diff = now - initialTime;
+            initialTime = now;
+
+            deltaUpdate += diff / timeU;
+            deltaFps += diff / timeR;
+
 
             if (targetFps <= 0 || deltaFps >= 1) {
-                appLogic.input(window, scene, now - initialTime);
+                appLogic.input(window, scene, (long) diff);
             }
 
             if (deltaUpdate >= 1) {
@@ -72,7 +76,6 @@ public class Engine {
                 deltaFps--;
                 window.update();
             }
-            initialTime = now;
         }
 
         cleanup();
