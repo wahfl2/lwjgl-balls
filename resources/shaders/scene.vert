@@ -10,6 +10,6 @@ uniform vec2 transform;
 
 void main()
 {
-    gl_Position = vec4((position + transform) / viewportSize, 0.0, 1.0);
+    gl_Position = vec4(((position + transform) / viewportSize) * 2, 0.0, 1.0);
     outColor = color;
 }
