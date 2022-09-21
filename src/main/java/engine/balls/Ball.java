@@ -13,16 +13,16 @@ public class Ball extends Entity {
 
     public double radius;
     public Vec2 pos;
-    public Vec2 vel = Vec2.ZERO;
+    public Vec2 vel = new Vec2(0d, 0d);
 
     public Ball(String id, Vec2 position, double radius) {
-        super(id, new CircleGenerator(radius, Utils.randomColor()).generateMesh());
+        super(id, new CircleGenerator(radius, Utils.randomColor()).generateMesh(), position.asVector2f());
         this.radius = radius;
         this.pos = position;
     }
 
     public Ball(String id, Vec2 position, double radius, Color color) {
-        super(id, new CircleGenerator(radius, color).generateMesh());
+        super(id, new CircleGenerator(radius, color).generateMesh(), position.asVector2f());
         this.radius = radius;
         this.pos = position;
     }
@@ -34,6 +34,13 @@ public class Ball extends Entity {
 
     public void move() {
         this.pos = this.pos.add(this.vel);
+        squareBoundary();
+        this.vel.y -= 0.1d;
+        this.vel = this.vel.mul(0.9995d);
+        this.updateEntityPos();
+    }
+
+    public void circleBoundary() {
         double distance = this.pos.length();
         double allowedDistance = 900d - this.radius;
         if (distance > allowedDistance) {
@@ -43,9 +50,24 @@ public class Ball extends Entity {
             this.pos = this.pos.sub(resolutionVec);
             this.vel = this.vel.sub(resolutionVec);
         }
-        this.vel.y -= 0.1d;
-        this.vel = this.vel.mul(0.9995d);
-        this.updateEntityPos();
+    }
+
+    public void squareBoundary() {
+        if (pos.x > 900d) {
+            vel.x -= pos.x - 900d;
+            pos.x = 900d;
+        } else if (pos.x < -900d) {
+            vel.x -= pos.x + 900d;
+            pos.x = -900d;
+        }
+
+        if (pos.y > 500d) {
+            vel.y -= pos.y - 500d;
+            pos.y = 500d;
+        } else if (pos.y < -500d) {
+            vel.y -= pos.y + 500d;
+            pos.y = -500d;
+        }
     }
 
     public void collide(@NotNull Ball other) {
@@ -55,7 +77,7 @@ public class Ball extends Entity {
             if (distance < addedRadii) {
                 // Position handling
                 double moveDist = addedRadii - distance;
-                Vec2 resolutionVec = this.pos.sub(other.pos).normalize().mul(moveDist / 2);
+                Vec2 resolutionVec = this.pos.sub(other.pos).normalize().mul(moveDist * 0.5d);
 
                 this.pos = this.pos.add(resolutionVec);
                 this.updateEntityPos();
