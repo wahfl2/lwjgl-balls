@@ -1,6 +1,7 @@
 package engine.util;
 
 import org.jetbrains.annotations.NotNull;
+import org.joml.Vector2f;
 
 public class Vec2 {
     public double x;
@@ -36,6 +37,10 @@ public class Vec2 {
     public final Vec2 normalize() {
         double len = this.length();
         return new Vec2(this.x / len, this.y / len);
+    }
+
+    public final Vector2f asVector2f() {
+        return new Vector2f((float) this.x, (float) this.y);
     }
 
     public static final Vec2 ZERO = new Vec2(0d, 0d);
