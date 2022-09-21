@@ -28,18 +28,13 @@ public class Main implements IAppLogic {
     @Override
     public void init(Window window, Scene scene, Render render) {
         Mesh mesh = new CircleGenerator(100d, Utils.randomColor()).generateMesh();
-
-        scene.addEntity(new Ball("ball1", new Vec2(-500d, 0d), Math.random() * 30 + 30));
-        scene.addEntity(new Ball("ball2", new Vec2(500d, 100d), Math.random() * 30 + 30));
-        scene.addEntity(new Ball("ball3", new Vec2(200d, -400d), Math.random() * 30 + 30));
-        scene.addEntity(new Ball("ball4", new Vec2(-50d, 800d), Math.random() * 30 + 30));
     }
 
     @Override
     public void input(Window window, Scene scene, long diffTimeMillis) {
         MouseInput mouseInput = window.getMouseInput();
         if (mouseInput.isLeftButtonPressed()) {
-            scene.addEntity(new Ball("ball" + (scene.getNumEntities() + 1), mouseInput.getCurrentPos(), Math.random() * 30 + 30));
+            scene.addEntity(new Ball("ball" + (scene.getNumEntities() + 1), mouseInput.getCurrentPos(), 20d));
         }
     }
 
@@ -52,7 +47,7 @@ public class Main implements IAppLogic {
                 ball.move();
             }
         }
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 2; i++) {
             physicsIteration(ballList);
         }
     }
