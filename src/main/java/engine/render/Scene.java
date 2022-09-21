@@ -23,4 +23,8 @@ public class Scene {
     public Map<String, Entity> getEntityMap() {
         return entityMap;
     }
+
+    public int getNumEntities() {
+        return entityMap.size();
+    }
 }

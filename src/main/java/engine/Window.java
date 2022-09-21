@@ -1,5 +1,6 @@
 package engine;
 
+import engine.input.MouseInput;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.system.MemoryUtil;
 
@@ -17,6 +18,7 @@ public class Window {
     private int height;
     private Callable<Void> resizeFunc;
     private int width;
+    private MouseInput mouseInput;
 
     private boolean resized = true;
 
@@ -53,6 +55,8 @@ public class Window {
         if (windowHandle == NULL) {
             throw new RuntimeException("Failed to create the GLFW window");
         }
+
+        mouseInput = new MouseInput(windowHandle);
 
         glfwSetFramebufferSizeCallback(windowHandle, (window, w, h) -> resized(w, h));
 
@@ -97,12 +101,17 @@ public class Window {
         return width;
     }
 
+    public MouseInput getMouseInput() {
+        return mouseInput;
+    }
+
     public boolean isKeyPressed(int keyCode) {
         return glfwGetKey(windowHandle, keyCode) == GLFW_PRESS;
     }
 
     public void pollEvents() {
         glfwPollEvents();
+        mouseInput.input();
     }
 
     protected void resized(int width, int height) {
